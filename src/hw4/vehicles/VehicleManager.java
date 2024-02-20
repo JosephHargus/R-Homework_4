@@ -130,15 +130,29 @@ public class VehicleManager {
 	//Returns false otherwise
 	public boolean removeVehicle(Vehicle vehicle) 
 	{
+		if(vehicleList.remove(vehicle))
+		{
+			//if true, vehicle was successfully removed
+			return true;
+		}
 		return false;
 	}
 	
-	//Adds the given behivle into vehicleList
+	//Adds the given vehicle into vehicleList
 	//Returns true if successfully added
 	//Returns false otherwise
 	public boolean addVehicle(Vehicle vehicle)
 	{
-		return false;
+		int size = vehicleList.size();
+		vehicleList.add(vehicle);
+		
+		//check that vehicle was successfully added
+		if(size == vehicleList.size())
+		{
+			return false;
+		}
+		
+		return true;
 	}
 	
 	//Saves the updated vehicleList back to the CSV file located at vehicleFilePath
