@@ -7,15 +7,28 @@ import java.io.BufferedReader;
 
 public class VehicleManager {
 	
-	private final String vehicleFilePath = "vehicleList.csv";
+	private final String vehicleFilePath;
 	private ArrayList <Vehicle> vehicleList;
+	private static VehicleManager instance;
 	
+	//Returns the singleton instance for vehicleManager
+	//If the instance does not exist, one will be made
+	//User must pass in the file path which VehicleManager should be initialized from
+	public static VehicleManager getInstance(String filePath)
+	{
+		//create the instance if it doesn't exist yet
+		if(instance == null) {
+			instance = new VehicleManager(filePath);
+		}
+		
+		return instance;
+	}
 	
 	//Reads the data from the CSV file stored at vehicleFilePath
 	//Initializes each vehicle object in the file
 	//Returns true if operation successful
 	//Returns false otherwise
-	public boolean readFromFile(String fileName)
+	private boolean readFromFile()
 	{
 		try 
 		{
@@ -100,15 +113,17 @@ public class VehicleManager {
 		return true;
 	}
 	
-	//Constructor which reads data from the CSV file stored at vehicleFilePath
-	public VehicleManager(String fileName)
+	//Private constructor for the singleton VehicleManager
+	private VehicleManager(String fileName)
 	{
+		this.vehicleFilePath = fileName;
 		this.vehicleList = new ArrayList<Vehicle>();
-		if(!this.readFromFile(fileName))
+		if(!this.readFromFile())
 		{
 			System.out.println("vehicleList could not be initialized. See error message.");
 		}
 	}
+	
 	
 	//Removes the given vehicle from vehicleList
 	//Returns true if successfully removed
