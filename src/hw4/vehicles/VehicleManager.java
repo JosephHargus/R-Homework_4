@@ -1,9 +1,13 @@
 package hw4.vehicles;
 
 import java.util.ArrayList;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 
 public class VehicleManager {
 	
@@ -50,21 +54,21 @@ public class VehicleManager {
 				
 				//check that line is not empty
 				//if the second element is empty, line was not split because it was empty
-				if(line[1].isBlank()) break;
+				if(line.length < 12) break;
 				
 				//read attributes of the vehicle
-				String type = line[0];
-				String brand = line[1];
-				String make = line[2];
-				long modelYear = Long.parseLong(line[3]);
-				double price = Double.parseDouble(line[4]);
-				VehicleColor color = VehicleColor.valueOf(line[5]);
-				FuelType fuelType = FuelType.valueOf(line[6]);
-				double mileage = Double.parseDouble(line[7]);
-				double mass = Double.parseDouble(line[8]);
-				int cylinders = Integer.parseInt(line[9]);
-				double gasTankCap = Double.parseDouble(line[10]);
-				StartMechanism startType = StartMechanism.valueOf(line[11]);
+				String type = line[0].trim();
+				String brand = line[1].trim();
+				String make = line[2].trim();
+				long modelYear = Long.parseLong(line[3].trim());
+				double price = Double.parseDouble(line[4].trim());
+				VehicleColor color = VehicleColor.valueOf(line[5].trim());
+				FuelType fuelType = FuelType.valueOf(line[6].trim());
+				double mileage = Double.parseDouble(line[7].trim());
+				double mass = Double.parseDouble(line[8].trim());
+				int cylinders = Integer.parseInt(line[9].trim());
+				double gasTankCap = Double.parseDouble(line[10].trim());
+				StartMechanism startType = StartMechanism.valueOf(line[11].trim());
 				
 				
 				//create a vehicle object depending on the type specified in the first column
@@ -161,10 +165,45 @@ public class VehicleManager {
 	//Returns false otherwise
 	public boolean saveVehicleList()
 	{
-		return false;
+		
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(vehicleFilePath));
+			
+			//write the header line
+			bw.write("Type, Model, Make, ModelYear, Price, Color, FuelType, Mileage, Mass, Cylinders, GasTankCapacity, StartType\n");
+			
+			for (Vehicle vehicle : vehicleList) {
+				String line = "";
+				
+				//get the VehicleType
+				if(vehicle instanceof Car)
+					line = "Car, ";
+				else if(vehicle instanceof SUV)
+					line = "SUV, ";
+				else if(vehicle instanceof Truck)
+					line = "Truck, ";	
+				else if(vehicle instanceof MotorBike)
+					line = "MotorBike, ";
+						
+				line = line.concat(String.format("%s, %s, %d, %f, %s, %s, %f, %f, %d, %f, %s\n", vehicle.getBrand(), vehicle.getMake(), vehicle.getModelYear(),
+						vehicle.getPrice(), vehicle.getColor().toString(), vehicle.getFuelType().toString(), vehicle.getMileage(), vehicle.getMass(), 
+						vehicle.getCylinders(), vehicle.getGasTankCapacity(), vehicle.getStartType().toString()));
+				
+				bw.write(line); 
+			}
+			bw.close();
+			
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+		
 	}
 	
 	//Returns the ArrayList stored at vehicleList
+	//this is for testing purposes only. !!we need to delete this from the final submission
 	public ArrayList<Vehicle> getVehicleList() {
 		return vehicleList;
 	}
