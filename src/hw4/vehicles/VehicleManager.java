@@ -229,8 +229,8 @@ public class VehicleManager {
 	    if (vehicleList.contains(v)) {
 	        System.out.println("Here is the Vehicle Information:");
 	        System.out.println(v);
-       //     System.out.printf("Here is the Maintenance Cost: $%.2f%n", v.calculateMaintenanceCost(100)); // Assuming a distance of 100 for demonstration
-	  //    System.out.printf("Here is the Fuel Efficiency: %.2f%n", v.calculateFuelEfficiency(100, 2.5)); // Assuming fuel price of $2.5 for demonstration
+           System.out.printf("Here is the Maintenance Cost: $%.2f%n", v.calculateMaintenanceCost(300)); // Assuming a distance of 100 for demonstration
+	        System.out.printf("Here is the Fuel Efficiency: %.2f%n", v.calculateFuelEfficiency(300, 3.25)); // Assuming fuel price of $2.5 for demonstration
 	        v.startEngine();
 	        System.out.println();
 	    } else {
