@@ -240,6 +240,37 @@ public class VehicleManager {
 	        System.out.println("No trucks found.");
 	    }
 	}
+	
+	public void displayAllSUVInformation() {
+	    boolean suvLocated = false;
+
+	    for (Vehicle vehicle : vehicleList) {
+	        if (vehicle instanceof SUV) {
+	            suvLocated = true;
+	            displayVehicleInformation(vehicle);
+	        }
+	    }
+
+	    if (!suvLocated) {
+	        System.out.println("No SUVs found.");
+	    }
+	}
+	
+
+public void displayAllMotorBikeInformation() {
+    boolean motorBikeLocated = false;
+
+    for (Vehicle vehicle : vehicleList) {
+        if (vehicle instanceof MotorBike) {
+            motorBikeLocated = true;
+            displayVehicleInformation(vehicle);
+        }
+    }
+
+    if (!motorBikeLocated) {
+        System.out.println("No motorbikes found in the inventory.");
+    }
+}
 
 	
 	public void displayVehicleInformation(Vehicle v) {
