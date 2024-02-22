@@ -213,7 +213,7 @@ public class VehicleManager {
 		   boolean carLocated = false;   //initializes a variable carLocated to false , and checks inventory
 
 		    for (Vehicle vehicle : vehicleList) {
-		        if (vehicle instanceof Car) {
+		        if (vehicle instanceof Car) {   
 		            carLocated = true;
 		            displayVehicleInformation(vehicle);  //calls displayVehicleInformation to display info 
 		        }
@@ -224,13 +224,30 @@ public class VehicleManager {
 		    }
 		
 	}
-	//Will fix up displayVehicleInformation later 
+	
+	public void displayAllTruckInformation() {
+	    boolean truckLocated = false;   //initializes a variable carLocated to false , and checks inventory
+
+
+	    for (Vehicle vehicle : vehicleList) {
+	        if (vehicle instanceof Truck) { //  // check if the current vehicle is an instance of the Truck class
+	            truckLocated = true;
+	            displayVehicleInformation(vehicle);
+	        }
+	    }
+
+	    if (!truckLocated) {
+	        System.out.println("No trucks found.");
+	    }
+	}
+
+	
 	public void displayVehicleInformation(Vehicle v) {
 	    if (vehicleList.contains(v)) {
 	        System.out.println("Here is the Vehicle Information:");
 	        System.out.println(v);
-           System.out.printf("Here is the Maintenance Cost: $%.2f%n", v.calculateMaintenanceCost(300)); // Assuming a distance of 100 for demonstration
-	        System.out.printf("Here is the Fuel Efficiency: %.2f%n", v.calculateFuelEfficiency(300, 3.25)); // Assuming fuel price of $2.5 for demonstration
+           System.out.printf("Here is the Maintenance Cost: $%.2f%n", v.calculateMaintenanceCost(300)); // inputs given 
+	        System.out.printf("Here is the Fuel Efficiency: %.2f%n", v.calculateFuelEfficiency(300, 3.25)); //inputs given
 	        v.startEngine();
 	        System.out.println();
 	    } else {
