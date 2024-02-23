@@ -206,12 +206,6 @@ public class VehicleManager {
 		
 	}
 	
-	//Returns the ArrayList stored at vehicleList
-	//this is for testing purposes only. !!we need to delete this from the final submission
-	public ArrayList<Vehicle> getVehicleList() {
-		return vehicleList;
-	}
-	
 	public void displayAllCarInformation()
 	{
 		   boolean carLocated = false;   //initializes a variable carLocated to false , and checks inventory
