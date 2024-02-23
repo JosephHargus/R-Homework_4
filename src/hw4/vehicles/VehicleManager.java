@@ -290,6 +290,17 @@ public class VehicleManager {
 	    }
 	}
 	
+	public void displayAllVehicleInformation() {
+	    if (vehicleList.isEmpty()) {
+	        System.out.println("Vehicle list is empty.");
+	    } else {
+	        System.out.println("Displaying information for all vehicles in the inventory:");
+	        for (Vehicle vehicle : vehicleList) {
+	            displayVehicleInformation(vehicle);
+	        }
+	    }
+	}
+	
 	//checks if given vehicle is a specific type of Vehicle subclass
 	private boolean isVehicleType(Vehicle v, Class clazz) {
 		return (clazz == v.getClass());
