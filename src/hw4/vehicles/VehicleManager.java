@@ -15,6 +15,9 @@ public class VehicleManager {
 	private final String vehicleFilePath;
 	private ArrayList <Vehicle> vehicleList;
 	private static VehicleManager instance;
+	private final static double distance = 300;
+	private final static double fuelPrice = 3.25;
+	
 	
 	//Returns the singleton instance for vehicleManager
 	//If the instance does not exist, one will be made
@@ -278,8 +281,8 @@ public class VehicleManager {
 	    if (vehicleList.contains(v)) {
 	        System.out.println("Here is the Vehicle Information:");
 	        System.out.println(v);
-           System.out.printf("Here is the Maintenance Cost: $%.2f%n", v.calculateMaintenanceCost(300)); // inputs given 
-	        System.out.printf("Here is the Fuel Efficiency: %.2f%n", v.calculateFuelEfficiency(300, 3.25)); //inputs given
+           System.out.printf("Here is the Maintenance Cost: $%.2f%n", v.calculateMaintenanceCost(distance)); // inputs given 
+	        System.out.printf("Here is the Fuel Efficiency: %.2f%n", v.calculateFuelEfficiency(distance, fuelPrice)); //inputs given
 	        v.startEngine();
 	        System.out.println();
 	    } else {
