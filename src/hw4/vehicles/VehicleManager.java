@@ -356,4 +356,65 @@ public class VehicleManager {
 		return null;
 	}
 	
+	//calculates fuel efficiency for each vehicle in the list,
+	//returns vehicle with highest fuel efficiency. If multiple vehicles
+	//have the same highest fuel efficiency, an ArrayList is returned.
+	public ArrayList<Vehicle> getVehicleWithHighestFuelEfficiency(double distance, double fuelPrice) {
+		double max=Double.MIN_VALUE, cost;
+		ArrayList<Vehicle> highestFuelEfficiency = new ArrayList<>();
+		
+		for (Vehicle v : vehicleList) {
+			cost = v.calculateFuelEfficiency(distance, fuelPrice);
+			if (cost > max) {
+				max=cost;
+				highestFuelEfficiency.clear();
+				highestFuelEfficiency.add(v);
+			}
+			else if (cost == max) {
+				highestFuelEfficiency.add(v);
+			}
+		}
+		return highestFuelEfficiency;
+	}
+	
+	//calculates fuel efficiency for each vehicle in the list,
+	//returns vehicle with lowest fuel efficiency. If multiple vehicles
+	//have the same lowest fuel efficiency, an ArrayList is returned.
+	public ArrayList<Vehicle> getVehicleWithLowestFuelEfficiency(double distance, double fuelPrice) {
+		double min=Double.MAX_VALUE, cost;
+		ArrayList<Vehicle> lowestFuelEfficiency = new ArrayList<>();
+		
+		for (Vehicle v : vehicleList) {
+			cost = v.calculateFuelEfficiency(distance, fuelPrice);
+			if (cost < min) {
+				min=cost;
+				lowestFuelEfficiency.clear();
+				lowestFuelEfficiency.add(v);
+			}
+			else if (cost == min) {
+				lowestFuelEfficiency.add(v);
+			}
+		}
+		return lowestFuelEfficiency;
+	}
+	
+	//calculates average fuel efficiency of SUVs in the vehicle list.
+	//if no SUVs exist in the list, -1.0 is returned as an error code.
+	public double getAverageFuelEfficiencyOfSUVs(double distance, double fuelPrice) {
+		double sum=0;
+		int count=0;
+		
+		for (Vehicle v : vehicleList) {
+			if (isVehicleType(v, SUV.class)) {
+				sum += v.calculateFuelEfficiency(distance, fuelPrice);
+				count++;
+			}
+		}
+		if (count > 0) {
+			double average = sum/count;
+			return average;
+		}
+		return -1.0;
+	}
+	
 }
