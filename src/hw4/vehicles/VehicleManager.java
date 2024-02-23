@@ -1,6 +1,7 @@
 package hw4.vehicles;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -301,5 +302,58 @@ public class VehicleManager {
 		return count;
 	}
 	
+	//calculates maintenance cost for each vehicle in vehicle list,
+	//returns vehicle with highest maintenance cost. if multiple vehicles
+	//cost the same highest maintenance cost, one vehicle is randomly returned.
+	public Vehicle getVehicleWithHighestMaintenanceCost(double distance) {
+		double max=Double.MIN_VALUE, cost;
+		ArrayList<Vehicle> highestMaintenance = new ArrayList<>();
+		
+		for (Vehicle v : vehicleList) {
+			cost = v.calculateMaintenanceCost(distance);
+			if (cost > max) {
+				max=cost;
+				highestMaintenance.clear();
+				highestMaintenance.add(v);
+			}
+			else if (cost == max) {
+				highestMaintenance.add(v);
+			}
+		}
+		
+		if (highestMaintenance.isEmpty() == false) {
+			Random r = new Random();
+			int rand_index = r.nextInt(highestMaintenance.size());
+			return highestMaintenance.get(rand_index);
+		}
+		return null;
+	}
+	
+	//calculates maintenance cost for each vehicle in vehicle list,
+	//returns vehicle with lowest maintenance cost. If multiple vehicles
+	//cost the same lowest maintenance cost, one vehicle is randomly returned.
+	public Vehicle getVehicleWithLowestMaintenanceCost(double distance) {
+		double min= Double.MAX_VALUE, cost;
+		ArrayList<Vehicle> lowestMaintenance = new ArrayList<>();
+		
+		for (Vehicle v : vehicleList) {
+			cost = v.calculateMaintenanceCost(distance);
+			if (cost < min) {
+				min=cost;
+				lowestMaintenance.clear();
+				lowestMaintenance.add(v);
+			}
+			else if (cost == min) {
+				lowestMaintenance.add(v);
+			}
+		}
+		
+		if (lowestMaintenance.isEmpty() == false) {
+			Random r = new Random();
+			int rand_index = r.nextInt(lowestMaintenance.size());
+			return lowestMaintenance.get(rand_index);
+		}
+		return null;
+	}
 	
 }
