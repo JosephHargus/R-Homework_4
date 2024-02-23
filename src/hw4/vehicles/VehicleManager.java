@@ -257,7 +257,7 @@ public class VehicleManager {
 	}
 	
 
-public void displayAllMotorBikeInformation() {
+	public void displayAllMotorBikeInformation() {
     boolean motorBikeLocated = false;
 
     for (Vehicle vehicle : vehicleList) {
@@ -285,5 +285,21 @@ public void displayAllMotorBikeInformation() {
 	        System.out.println("The Vehicle not found.");
 	    }
 	}
+	
+	//checks if given vehicle is a specific type of Vehicle subclass
+	private boolean isVehicleType(Vehicle v, Class clazz) {
+		return (clazz == v.getClass());
+	}
+	
+	//returns number of objects in vehicle list based on the vehicle type of the object
+	public int getNumberOfVehiclesByType(Class clazz) {
+		int count = 0;
+		for (Vehicle v : vehicleList) {
+			if (isVehicleType(v, clazz));
+			count++;
+		}
+		return count;
+	}
+	
 	
 }
