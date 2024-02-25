@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 
 public class VehicleManager {
 	
+	//attributes
 	private final String vehicleFilePath;
 	private ArrayList <Vehicle> vehicleList;
 	private static VehicleManager instance;
@@ -206,10 +207,12 @@ public class VehicleManager {
 		
 	}
 	
+	//method to display information of every Car stored in the VehicleManager singleton
 	public void displayAllCarInformation()
 	{
 		   boolean carLocated = false;   //initializes a variable carLocated to false , and checks inventory
 
+		   //loop through every vehicle in the list
 		    for (Vehicle vehicle : vehicleList) {
 		        if (vehicle instanceof Car) {   
 		            carLocated = true;
@@ -223,10 +226,11 @@ public class VehicleManager {
 		
 	}
 	
+	//method to display information of every Truck stored in the VehicleManager singleton
 	public void displayAllTruckInformation() {
 	    boolean truckLocated = false;   //initializes a variable carLocated to false , and checks inventory
 
-
+	    //loop through every vehicle in the list
 	    for (Vehicle vehicle : vehicleList) {
 	        if (vehicle instanceof Truck) { //  // check if the current vehicle is an instance of the Truck class
 	            truckLocated = true;
@@ -234,14 +238,16 @@ public class VehicleManager {
 	        }
 	    }
 
-	    if (!truckLocated) {
+	    if (!truckLocated) {	//check if no Trucks were found
 	        System.out.println("No trucks found.");
 	    }
 	}
 	
+	//method to display information of every SUV stored in the VehicleManager singleton
 	public void displayAllSUVInformation() {
 	    boolean suvLocated = false;
 
+	    //loop through every vehicle in the list
 	    for (Vehicle vehicle : vehicleList) {
 	        if (vehicle instanceof SUV) {
 	            suvLocated = true;
@@ -249,30 +255,33 @@ public class VehicleManager {
 	        }
 	    }
 
-	    if (!suvLocated) {
+	    if (!suvLocated) {		//check if no SUVs were found
 	        System.out.println("No SUVs found.");
 	    }
 	}
 	
-
+	//method to display information of every MotorBike stored in the VehicleManager singleton
 	public void displayAllMotorBikeInformation() {
-    boolean motorBikeLocated = false;
-
-    for (Vehicle vehicle : vehicleList) {
-        if (vehicle instanceof MotorBike) {
-            motorBikeLocated = true;
-            displayVehicleInformation(vehicle);
-        }
-    }
-
-    if (!motorBikeLocated) {
-        System.out.println("No motorbikes found in the inventory.");
+	    boolean motorBikeLocated = false;
+	
+	    //loop through every vehicle in the list
+	    for (Vehicle vehicle : vehicleList) {
+	        if (vehicle instanceof MotorBike) {
+	            motorBikeLocated = true;
+	            displayVehicleInformation(vehicle);
+	        }
+	    }
+	
+	    if (!motorBikeLocated) {	//check if no MotorBikes were found
+	        System.out.println("No motorbikes found in the inventory.");
     }
 }
 
-	
+	//method to display information of a single vehicle given as a parameter
 	public void displayVehicleInformation(Vehicle v) {
+		//check that vehicle exists in the VehicleManager singleton
 	    if (vehicleList.contains(v)) {
+	    	//print all information
 	        System.out.println("Here is the Vehicle Information:");
 	        System.out.println(v);
            System.out.printf("Here is the Maintenance Cost: $%.2f%n", v.calculateMaintenanceCost(distance)); // inputs given 
@@ -284,14 +293,18 @@ public class VehicleManager {
 	    }
 	}
 	
+	//method to display information of every vehicle stored in the VehicleManager singleton
 	public void displayAllVehicleInformation() {
+		//check that the list is not empty
 	    if (vehicleList.isEmpty()) {
 	        System.out.println("Vehicle list is empty.");
-	    } else {
+	    } 
+	    //display the information
+	    else {
 	        System.out.println("Displaying information for all vehicles in the inventory:");
-	        for (Vehicle vehicle : vehicleList) {
+	        for (Vehicle vehicle : vehicleList) 
+	        	//call displayVehicleInformation to display the information of each vehicle
 	            displayVehicleInformation(vehicle);
-	        }
 	    }
 	}
 	
@@ -315,12 +328,16 @@ public class VehicleManager {
 	//cost the same highest maintenance cost, one vehicle is randomly returned.
 	public Vehicle getVehicleWithHighestMaintenanceCost(double distance) {
 		double max=Double.MIN_VALUE, cost;
+		//create an arrayList to store vehicles with the highest cost
 		ArrayList<Vehicle> highestMaintenance = new ArrayList<>();
 		
+		//loop through every vehicle
 		for (Vehicle v : vehicleList) {
 			cost = v.calculateMaintenanceCost(distance);
 			if (cost > max) {
+				//replace max with the new max
 				max=cost;
+				//clear the results, and add the new one
 				highestMaintenance.clear();
 				highestMaintenance.add(v);
 			}
@@ -329,6 +346,7 @@ public class VehicleManager {
 			}
 		}
 		
+		//choose a vehicle from the ArrayList at random to return
 		if (highestMaintenance.isEmpty() == false) {
 			Random r = new Random();
 			int rand_index = r.nextInt(highestMaintenance.size());
@@ -342,12 +360,16 @@ public class VehicleManager {
 	//cost the same lowest maintenance cost, one vehicle is randomly returned.
 	public Vehicle getVehicleWithLowestMaintenanceCost(double distance) {
 		double min= Double.MAX_VALUE, cost;
+		//create an ArrayList to store vehicles with the lowest cost
 		ArrayList<Vehicle> lowestMaintenance = new ArrayList<>();
 		
+		//loop through every vehicle
 		for (Vehicle v : vehicleList) {
 			cost = v.calculateMaintenanceCost(distance);
 			if (cost < min) {
+				//update min with the new minimum
 				min=cost;
+				//clear the ArrayList and add the new minimum vehicle
 				lowestMaintenance.clear();
 				lowestMaintenance.add(v);
 			}
@@ -356,6 +378,7 @@ public class VehicleManager {
 			}
 		}
 		
+		//choose a vehicle from the ArrayList at random to return
 		if (lowestMaintenance.isEmpty() == false) {
 			Random r = new Random();
 			int rand_index = r.nextInt(lowestMaintenance.size());
@@ -369,11 +392,14 @@ public class VehicleManager {
 	//have the same highest fuel efficiency, an ArrayList is returned.
 	public ArrayList<Vehicle> getVehicleWithHighestFuelEfficiency(double distance, double fuelPrice) {
 		double max=Double.MIN_VALUE, cost;
+		//create an ArrayList to store the results
 		ArrayList<Vehicle> highestFuelEfficiency = new ArrayList<>();
 		
+		//loop through every vehicle
 		for (Vehicle v : vehicleList) {
 			cost = v.calculateFuelEfficiency(distance, fuelPrice);
 			if (cost > max) {
+				//replace max with the new maximum cost
 				max=cost;
 				highestFuelEfficiency.clear();
 				highestFuelEfficiency.add(v);
@@ -390,11 +416,14 @@ public class VehicleManager {
 	//have the same lowest fuel efficiency, an ArrayList is returned.
 	public ArrayList<Vehicle> getVehicleWithLowestFuelEfficiency(double distance, double fuelPrice) {
 		double min=Double.MAX_VALUE, cost;
+		//create an ArrayList to store the results
 		ArrayList<Vehicle> lowestFuelEfficiency = new ArrayList<>();
 		
+		//loop through every vehicle
 		for (Vehicle v : vehicleList) {
 			cost = v.calculateFuelEfficiency(distance, fuelPrice);
 			if (cost < min) {
+				//replace min with the new minimum cost
 				min=cost;
 				lowestFuelEfficiency.clear();
 				lowestFuelEfficiency.add(v);
@@ -412,12 +441,15 @@ public class VehicleManager {
 		double sum=0;
 		int count=0;
 		
+		//loop through every vehicle, then check if it is an SUV
 		for (Vehicle v : vehicleList) {
 			if (isVehicleType(v, SUV.class)) {
 				sum += v.calculateFuelEfficiency(distance, fuelPrice);
 				count++;
 			}
 		}
+		
+		//calculate the average and return
 		if (count > 0) {
 			double average = sum/count;
 			return average;

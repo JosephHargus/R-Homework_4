@@ -2,18 +2,19 @@ package hw4.vehicles;
 
 public class Car extends Vehicle{
 
-	//constructor
+	//constructor with all attributes as parameters
 	public Car(String brand, String make, long modelYear, double price, VehicleColor color, FuelType fuelType,
 			double mileage, double mass, int cylinders, double gasTankCapacity, StartMechanism startType) {
 		super(brand, make, modelYear, price, color, fuelType, mileage, mass, cylinders, gasTankCapacity, startType);
 	}
 	
-	//copy constructor
+	//copy constructor with only a Car object as parameter
 		public Car(Car car) {
 			super(car);
 		}
 
-	//overridden methods
+	//overriden methods
+	//each of the below three methods are explained in detail in the super class Vehicle
 	@Override
 	public double calculateMaintenanceCost(double distance) {
 		double maintenanceCost = distance * mass  * (2024 - modelYear) * cylinders * 0.0005;

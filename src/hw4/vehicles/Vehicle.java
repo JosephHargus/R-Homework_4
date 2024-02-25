@@ -1,7 +1,11 @@
 package hw4.vehicles;
 
+
+//the Vehicle class is an abstract class used as a base for the 4 types of vehicles
+//this class contains attributes and methods common to all 4 subclasses
 public abstract class Vehicle {
 	
+	//attributes
 	protected String brand;
 	protected String make;
 	protected long modelYear;
@@ -14,7 +18,7 @@ public abstract class Vehicle {
 	protected double gasTankCapacity;
 	protected StartMechanism startType;
 	
-	//constructor
+	//constructor with all attributes as parameters
 	public Vehicle(String brand, String make, long modelYear, double price, VehicleColor color, FuelType fuelType,
 			double mileage, double mass, int cylinders, double gasTankCapacity, StartMechanism startType) {
 		this.brand = brand;
@@ -30,7 +34,7 @@ public abstract class Vehicle {
 		this.startType = startType;
 	}
 	
-	//copy constructor
+	//copy constructor with another vehicle as parameter
 	public Vehicle(Vehicle vehicle) {
 		this.brand = vehicle.brand;
 		this.make = vehicle.make;
@@ -45,14 +49,19 @@ public abstract class Vehicle {
 		this.startType = vehicle.startType;
 	}
 	
-	//abstract methods
+	//abstract methods implemented in subclasses
+	//this method will calculate the maintenance cost of some vehicle, based on 
+	//object-specific attributes and a distance given as parameter
 	public abstract double calculateMaintenanceCost(double distance);
 	
+	//this method will calculate the fuel efficiency of some vehicle, based on 
+	//object-specific attributes and distance and fuelPrice given as parameters
 	public abstract double calculateFuelEfficiency(double distance, double fuelPrice);
 	
+	//this method will simply start the engine of a vehicle
 	public abstract void startEngine();
 		
-	//toString()
+	//overridden toString()
 	@Override
 	public String toString() {
 		return "Vehicle \nbrand=" + brand + "\nmake=" + make + "\nmodelYear=" + modelYear + "\nprice=" + price
